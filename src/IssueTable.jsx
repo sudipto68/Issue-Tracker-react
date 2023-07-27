@@ -15,7 +15,7 @@ const IssueTable = () => {
 
   let issueData;
 
-  const IssueType = [
+  const IssueStatus = [
     {
       value: "pending",
       name: "Pending",
@@ -66,7 +66,7 @@ const IssueTable = () => {
             <td>
               <Select
                 value={issue.status}
-                categories={IssueType}
+                categories={IssueStatus}
                 onChange={(e) =>
                   dispatch(
                     changeIssueStatus({
