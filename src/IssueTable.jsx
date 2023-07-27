@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
-
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeIssueStatus,
   deleteIssue,
 } from "./Redux/features/issue/issueSlice";
+import Button from "./components/Button/Button";
+import Select from "./components/Select/Select";
 
 // eslint-disable-next-line react/prop-types
 const IssueTable = () => {
@@ -13,6 +14,17 @@ const IssueTable = () => {
   const dispatch = useDispatch();
 
   let issueData;
+
+  const IssueType = [
+    {
+      value: "pending",
+      name: "Pending",
+    },
+    {
+      value: "done",
+      name: "Done",
+    },
+  ];
 
   if (searchValue.length > 0) {
     issueData = issues.filter(
@@ -52,8 +64,9 @@ const IssueTable = () => {
             <td>{issue.issueDescription}</td>
             <td>{issue.issueType}</td>
             <td>
-              <select
+              <Select
                 value={issue.status}
+                categories={IssueType}
                 onChange={(e) =>
                   dispatch(
                     changeIssueStatus({
@@ -62,21 +75,17 @@ const IssueTable = () => {
                     })
                   )
                 }
-              >
-                <option value="pending">Pending</option>
-                <option value="done">Done</option>
-              </select>
+              />
             </td>
             <td className="d-flex gap-3">
-              <button className="btn btn-info">Edit</button>
-              <button
+              <Button className="btn btn-info" title="Edit" />
+              <Button
                 className="btn btn-danger"
                 onClick={() => {
                   dispatch(deleteIssue(issue.id));
                 }}
-              >
-                Delete
-              </button>
+                title="Delete"
+              />
             </td>
           </tr>
         ))}

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addIssue } from "./Redux/features/issue/issueSlice";
+import Button from "./components/Button/Button";
+import Select from "./components/Select/Select";
 
 // eslint-disable-next-line react/prop-types
 const IssueForm = () => {
@@ -9,6 +11,22 @@ const IssueForm = () => {
   const [issueDescription, setIssueDescription] = useState("");
   const [issueType, setIssueType] = useState("Bug");
   const dispatch = useDispatch();
+
+  const IssueType = [
+    {
+      value: "bug",
+      name: "Bug",
+    },
+    {
+      value: "feature-request",
+      name: "Feature Request",
+    },
+
+    {
+      value: "other",
+      name: "Other",
+    },
+  ];
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +46,7 @@ const IssueForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div>
+      <div className="mb-2">
         <label className="form-label">User name:</label>
         <input
           className="form-control"
@@ -38,7 +56,7 @@ const IssueForm = () => {
           required
         />
       </div>
-      <div>
+      <div className="mb-2">
         <label className="form-label">User email:</label>
         <input
           className="form-control"
@@ -48,7 +66,7 @@ const IssueForm = () => {
           required
         />
       </div>
-      <div>
+      <div className="mb-2">
         <label className="form-label">Issue Description:</label>
         <textarea
           className="form-control"
@@ -57,21 +75,15 @@ const IssueForm = () => {
           required
         />
       </div>
-      <div>
+      <div className="mb-2">
         <label className="form-label">Issue Type:</label>
-        <select
-          className="form-select"
+        <Select
           value={issueType}
+          categories={IssueType}
           onChange={(e) => setIssueType(e.target.value)}
-        >
-          <option value="bug">Bug</option>
-          <option value="feature-request">Feature Request</option>
-          <option value="other">Other</option>
-        </select>
+        />
       </div>
-      <button className="btn btn-primary mt-3" type="submit">
-        Submit Issue
-      </button>
+      <Button className="btn-primary mt-3" type="submit" title="Submit Issue" />
     </form>
   );
 };

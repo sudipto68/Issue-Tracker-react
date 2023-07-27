@@ -5,9 +5,30 @@ import {
   setSearch,
 } from "./Redux/features/filterIssue/filterIssueSlice";
 import { useDispatch } from "react-redux";
+import Select from "./components/Select/Select";
 
 const Issue = () => {
   const dispatch = useDispatch();
+
+  const IssueType = [
+    {
+      value: "all",
+      name: "All",
+    },
+    {
+      value: "bug",
+      name: "Bug",
+    },
+    {
+      value: "feature-request",
+      name: "Feature Request",
+    },
+
+    {
+      value: "other",
+      name: "Other",
+    },
+  ];
 
   return (
     <div>
@@ -26,15 +47,10 @@ const Issue = () => {
           />
         </div>
         <div className="col">
-          <select
-            className="form-select"
+          <Select
             onChange={(e) => dispatch(filterByType(e.target.value))}
-          >
-            <option value="all">All</option>
-            <option value="bug">Bug</option>
-            <option value="feature-request">Feature Request</option>
-            <option value="other">Other</option>
-          </select>
+            categories={IssueType}
+          />
         </div>
       </div>
       <IssueTable />
