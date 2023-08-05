@@ -6,9 +6,15 @@ import {
 } from "./Redux/features/filterIssue/filterIssueSlice";
 import { useDispatch } from "react-redux";
 import Select from "./components/Select/Select";
+import { useState } from "react";
 
 const Issue = () => {
+  const [editIssue, setEditIssue] = useState(null);
   const dispatch = useDispatch();
+
+  const handleEdit = (issue) => {
+    setEditIssue(issue);
+  };
 
   const IssueType = [
     {
@@ -32,7 +38,7 @@ const Issue = () => {
 
   return (
     <div>
-      <IssueForm />
+      <IssueForm editIssue={editIssue} setEditIssue={setEditIssue} />
       <hr />
       <h2>Issue List</h2>
       <div className="row">
@@ -53,7 +59,7 @@ const Issue = () => {
           />
         </div>
       </div>
-      <IssueTable />
+      <IssueTable onEdit={handleEdit} />
     </div>
   );
 };

@@ -45,9 +45,19 @@ const issueSlice = createSlice({
       );
       localStorage.setItem("issue", JSON.stringify(state.issues));
     },
+
+    updateIssue: (state, action) => {
+      const { id, issueDescription } = action.payload;
+      const issueToUpdate = state.issues.find((issue) => issue.id === id);
+      if (issueToUpdate) {
+        issueToUpdate.issueDescription = issueDescription;
+      }
+      localStorage.setItem("issue", JSON.stringify(state.issues));
+    },
   },
 });
 
-export const { addIssue, changeIssueStatus, deleteIssue } = issueSlice.actions;
+export const { addIssue, changeIssueStatus, deleteIssue, updateIssue } =
+  issueSlice.actions;
 
 export default issueSlice.reducer;

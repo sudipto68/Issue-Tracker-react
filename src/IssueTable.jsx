@@ -8,7 +8,7 @@ import Button from "./components/Button/Button";
 import Select from "./components/Select/Select";
 
 // eslint-disable-next-line react/prop-types
-const IssueTable = () => {
+const IssueTable = ({ onEdit }) => {
   const { issues } = useSelector((state) => state.issue);
   const { filterType, searchValue } = useSelector((state) => state.filterIssue);
   const dispatch = useDispatch();
@@ -78,7 +78,11 @@ const IssueTable = () => {
               />
             </td>
             <td className="d-flex gap-3">
-              <Button className="btn btn-info" title="Edit" />
+              <Button
+                className="btn btn-info"
+                title="Edit"
+                onClick={() => onEdit(issue)}
+              />
               <Button
                 className="btn btn-danger"
                 onClick={() => {
